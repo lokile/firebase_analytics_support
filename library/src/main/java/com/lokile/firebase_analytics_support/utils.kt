@@ -13,7 +13,8 @@ fun handleException(throwable: Throwable) {
     throwable.printStackTrace()
 }
 
-fun initFirebase(app: Application, configList: List<RemoteConfigValue>, allowLogEvent: Boolean) {
+fun initFirebase(app: Application, configList: List<RemoteConfigValue>, allowLogEvent: Boolean,
+                 loadingCallback: ((loadFromPreviousVersion: Boolean, configUpdated: Boolean, fetchSuccess: Boolean) -> Unit)? = null) {
     EventTrackingManager.init(app, Firebase.analytics, allowLogEvent)
     setCurrentAppVersion(
         app.packageManager.getPackageInfo(app.packageName, 0).versionName
@@ -27,5 +28,6 @@ fun initFirebase(app: Application, configList: List<RemoteConfigValue>, allowLog
         if (isSuccess) {
             setUserSegmentName(DefaultRemoteConfigValues.USER_SEGMENT_NAME.value as String)
         }
+        loadingCallback?.invoke(fromPrevious, isUpdated, isSuccess)
     }
 }
