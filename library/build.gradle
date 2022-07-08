@@ -54,7 +54,7 @@ afterEvaluate {
                 from components.release
 
                 groupId = 'com.github.lokile'
-                artifactId = 'media_utils'
+                artifactId = 'firebase_support'
                 version = '0.0.0'
             }
         }
